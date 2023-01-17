@@ -41,7 +41,7 @@ std::vector<CIndividual*>* CIndividual::cvCrossover(CIndividual& pcOther, int iC
 {
 	std::vector<CIndividual*>* c_v_children = new std::vector<CIndividual*>;
 	if (dProbability < dCrossoverProbability)
-	{	//------------------------------probem tutaj---------------------------------------
+	{
 		std::vector<int>* i_v_firstChild = new std::vector<int>;
 		std::vector<int>* i_v_secondChild = new std::vector<int>;
 		for (int ii = 0; ii < i_v_genotype->size(); ii++)
@@ -60,9 +60,6 @@ std::vector<CIndividual*>* CIndividual::cvCrossover(CIndividual& pcOther, int iC
 		}
 		c_v_children->push_back(new CIndividual(i_v_firstChild, c_knapsack_problem));
 		c_v_children->push_back(new CIndividual(i_v_secondChild, c_knapsack_problem));
-		std::cout << c_v_children->at(0)->ivGetGenotype()->size() << std::endl;
-		std::cout << c_v_children->at(1)->ivGetGenotype()->size() << std::endl;
-		// ---------------------------------------------------------------------------------
 	}
 	else
 	{
