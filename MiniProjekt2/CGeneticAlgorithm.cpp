@@ -46,7 +46,6 @@ void CGeneticAlgorithm::vRunAlgorithm()
 	vGenerateFirstPopulation();
 	for (int ii = 0; ii < i_maximum_generations; ii++)
 	{
-		std::cout << "Generacja: " << (ii) << std::endl;
 		vFindBestYet(); //poszukiwanie najlepszego rozwi¹zania
 		vGenerateNewPopulation(); //krzy¿owanie + mutowanie
 		vSwapPopulations(); //przenoszenie next_population do present_population oraz usuwanie starej
@@ -80,7 +79,6 @@ void CGeneticAlgorithm::vFindBestYet()
 			c_best_individual = (*v_present_population)[ii]->pcClone();
 		}
 	}
-	std::cout << "BestYet" << std::endl;
 }
 
 void CGeneticAlgorithm::vGenerateNewPopulation()
@@ -116,7 +114,6 @@ void CGeneticAlgorithm::vCrossovers()
 		v_next_population->pop_back();
 	}
 	delete v_children;
-	std::cout << "Krzyzowanie" << std::endl;
 }
 
 void CGeneticAlgorithm::vMutations()
@@ -125,7 +122,6 @@ void CGeneticAlgorithm::vMutations()
 	{
 		(*v_next_population)[ii]->vMutate(d_mutation_probability);
 	}
-	std::cout << "mutowanie" << std::endl;
 }
 
 CIndividual* CGeneticAlgorithm::pcGetBestIndividual()

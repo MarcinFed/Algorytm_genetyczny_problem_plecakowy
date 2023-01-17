@@ -65,7 +65,6 @@ std::vector<CIndividual*>* CIndividual::cvCrossover(CIndividual& pcOther, int iC
 	{
 		c_v_children->push_back(this->pcClone());
 		c_v_children->push_back(pcOther.pcClone());
-		std::cout << "Udalo sie bez krzyzowania!" << std::endl;
 	}
 	return c_v_children;
 }
