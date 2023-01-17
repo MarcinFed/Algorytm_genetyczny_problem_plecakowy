@@ -116,5 +116,15 @@ bool CKnapsackProblem::bCheckAtributes(int iItems, double dSpace, std::vector<do
             return false;
         }
     }
+    if (vValue.size() > iItems)
+    {
+        std::cout << "Ilosc przedmiotow nieodpowiada ilosci podanych wartosci" << std::endl;
+        return false;
+    }
+    if (vSize.size() > iItems)
+    {
+        std::cout << "Ilosc przedmiotow nieodpowiada ilosci podanych wartosci" << std::endl;
+        return false;
+    }
 }
 
