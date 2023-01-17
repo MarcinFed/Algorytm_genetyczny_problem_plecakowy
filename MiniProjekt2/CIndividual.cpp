@@ -72,12 +72,9 @@ std::vector<CIndividual*>* CIndividual::cvCrossover(CIndividual& pcOther, int iC
 
 void CIndividual::vMutate(double dMutationProbability)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<double> distrib(0.0, 1.0);
 	for (int ii = 0; ii < i_v_genotype->size(); ii++)
 	{
-		if (distrib(gen) < dMutationProbability)
+		if (((double)rand() / (double)RAND_MAX) < dMutationProbability)
 		{
 			if (i_v_genotype->at(ii) == 1)
 				(*i_v_genotype)[ii] = 0;

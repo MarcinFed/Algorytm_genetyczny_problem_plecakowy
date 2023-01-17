@@ -7,7 +7,7 @@ int main()
     CKnapsackProblem problem;
     if (problem.bRead("Knapsack.txt"))
     {
-        CGeneticAlgorithm AG = CGeneticAlgorithm(4, 0.50, 0.20, 100, &problem);
+        CGeneticAlgorithm AG = CGeneticAlgorithm(4, 0.75, 0.50, 100, &problem);
         AG.vRunAlgorithm();
         AG.vPrintBestGenotype();
     }

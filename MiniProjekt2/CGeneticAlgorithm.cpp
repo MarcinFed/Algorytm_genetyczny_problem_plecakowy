@@ -2,6 +2,7 @@
 
 CGeneticAlgorithm::CGeneticAlgorithm()
 {
+	srand(time(NULL));
 	i_population_size = i_population_size_const;
 	d_crossover_probability = d_crossover_probability_const;
 	d_mutation_probability = d_mutation_probability_const;
@@ -14,6 +15,7 @@ CGeneticAlgorithm::CGeneticAlgorithm()
 
 CGeneticAlgorithm::CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CKnapsackProblem* cKnapsackProblem)
 {
+	srand(time(NULL));
 	i_population_size = iPopulationSize;
 	d_crossover_probability = dCrossoverProbability;
 	d_mutation_probability = dMutationProbability;
@@ -58,7 +60,7 @@ void CGeneticAlgorithm::vGenerateFirstPopulation()
 		std::vector<int>* vIndividual = new std::vector<int>;
 		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
 		{
-			vIndividual->push_back(iGetRandomNumber(1));
+			vIndividual->push_back(iGetRandomNumber(2));
 		}
 		v_present_population->push_back(new CIndividual(vIndividual, c_knapsack_problem));
 	}
@@ -104,7 +106,7 @@ void CGeneticAlgorithm::vCrossovers()
 	std::vector<CIndividual*>* v_children = new std::vector<CIndividual*>;
 	while (v_present_population->size() > v_next_population->size())
 	{
-		v_children = pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size() - 1)), v_present_population->at(iGetRandomNumber(v_present_population->size() - 1)))->cvCrossover(*pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size() - 1)), v_present_population->at(iGetRandomNumber(v_present_population->size() - 1))), iGetRandomNumber(c_knapsack_problem->iGetItemsNumber()), d_crossover_probability, dGetRandomNumber());
+		v_children = pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size())))->cvCrossover(*pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size()))), iGetRandomNumber((c_knapsack_problem->iGetItemsNumber()-1)), d_crossover_probability, dGetRandomNumber());
 		v_next_population->push_back((*v_children)[0]);
 		v_next_population->push_back((*v_children)[1]);
 		v_children = NULL;
@@ -133,18 +135,14 @@ CIndividual* CGeneticAlgorithm::pcGetBestIndividual()
 
 int CGeneticAlgorithm::iGetRandomNumber(int iBound)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(0, iBound);
-	return distrib(gen);
+	int iRandom = rand() % iBound;
+	return iRandom;
 }
 
 double CGeneticAlgorithm::dGetRandomNumber()
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<double> distrib(0.0, 1.0);
-	return distrib(gen);
+	double dRandom = ((double)rand() / (double)RAND_MAX);
+	return dRandom;
 }
 
 
