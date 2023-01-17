@@ -12,12 +12,13 @@ private:
 public:
 	CKnapsackProblem();
 	~CKnapsackProblem();
-	//bool bRead(std::string sFileName);
+	bool bRead(std::string sFileName);
 	double dScore(std::vector<int>* ivGenotype);
 	void vSetItemsNumber(int iNumber);
 	void vSetSizeVector(std::vector<double> dvSize);
 	void vSetValueVector(std::vector<double> dvValue);
 	void vSetSpace(double iSpace);
 	int iGetItemsNumber();
+	bool bCheckAtributes(int iItems, double dSpace, std::vector<double> vSize, std::vector<double> vValue);
 };
 

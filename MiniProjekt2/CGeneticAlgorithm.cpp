@@ -37,7 +37,6 @@ CGeneticAlgorithm::~CGeneticAlgorithm()
 	}
 	delete v_next_population;
 	delete c_best_individual;
-//	delete c_knapsack_problem;
 }
 
 void CGeneticAlgorithm::vRunAlgorithm()
@@ -45,15 +44,6 @@ void CGeneticAlgorithm::vRunAlgorithm()
 	vGenerateFirstPopulation();
 	for (int ii = 0; ii < i_maximum_generations; ii++)
 	{
-		for (int ii = 0; ii < v_present_population->size(); ii++)
-		{
-			std::cout << v_present_population->at(ii)->ivGetGenotype()->size() << " ";
-			for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-			{
-				std::cout << " " << v_present_population->at(ii)->ivGetGenotype()->at(ij) << " ";
-			}
-			std::cout << std::endl;
-		}
 		std::cout << "Generacja: " << (ii) << std::endl;
 		vFindBestYet(); //poszukiwanie najlepszego rozwi¹zania
 		vGenerateNewPopulation(); //krzy¿owanie + mutowanie
@@ -89,58 +79,24 @@ void CGeneticAlgorithm::vFindBestYet()
 		}
 	}
 	std::cout << "BestYet" << std::endl;
-	for (int ii = 0; ii < v_present_population->size(); ii++)
-	{
-		std::cout << v_present_population->at(ii)->ivGetGenotype()->size() << " ";
-		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-		{
-			std::cout << " " << v_present_population->at(ii)->ivGetGenotype()->at(ij) << " ";
-		}
-		std::cout << std::endl;
-	}
 }
 
 void CGeneticAlgorithm::vGenerateNewPopulation()
 {
 	vCrossovers();
-	for (int ii = 0; ii < v_next_population->size(); ii++)
-	{
-		std::cout << v_next_population->at(ii)->ivGetGenotype()->size() << " ";
-		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-		{
-			std::cout << " " << v_next_population->at(ii)->ivGetGenotype()->at(ij) << " ";
-		}
-		std::cout << std::endl;
-	}
 	vMutations();
-	for (int ii = 0; ii < v_next_population->size(); ii++)
-	{
-		std::cout << v_next_population->at(ii)->ivGetGenotype()->size() << " ";
-		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-		{
-			std::cout << " " << v_next_population->at(ii)->ivGetGenotype()->at(ij) << " ";
-		}
-		std::cout << std::endl;
-	}
 }
 
 void CGeneticAlgorithm::vSwapPopulations()
 {
+	for (int ii = 0; ii < v_present_population->size(); ii++)
+	{
+		delete v_present_population->at(ii);
+	}
 	delete v_present_population;
 	v_present_population = new std::vector<CIndividual*>;
 	v_present_population=v_next_population;
 	v_next_population = new std::vector<CIndividual*>;
-
-	std::cout << "Swapowanie" << std::endl;
-	for (int ii = 0; ii < v_present_population->size(); ii++)
-	{
-		std::cout << v_present_population->at(ii)->ivGetGenotype()->size() << " ";
-		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-		{
-			std::cout << " " << v_present_population->at(ii)->ivGetGenotype()->at(ij) << " ";
-		}
-		std::cout << std::endl;
-	}
 }
 
 void CGeneticAlgorithm::vCrossovers()

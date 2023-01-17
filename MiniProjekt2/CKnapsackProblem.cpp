@@ -54,3 +54,67 @@ int CKnapsackProblem::iGetItemsNumber()
     return i_items;
 }
 
+bool CKnapsackProblem::bRead(std::string sFileName)
+{
+	std::ifstream file(sFileName);
+    if (file.is_open())
+    {
+        int iItems;
+        double dSpace;
+        std::vector<double> vSize;
+        std::vector<double> vValue;
+        double dTemporary;
+        file >> iItems;
+        file >> dSpace;
+        while (!file.eof())
+        {
+            file >> dTemporary;
+            vSize.push_back(dTemporary);
+            file >> dTemporary;
+            vValue.push_back(dTemporary);
+        }
+        if (bCheckAtributes(iItems,dSpace,vSize,vValue))
+        {
+            vSetItemsNumber(iItems);
+            vSetSpace(dSpace);
+            vSetSizeVector(vSize);
+            vSetValueVector(vValue);
+        }
+        else
+            return false;
+        return true;
+	}
+	else 
+    {
+        std::cout << "Zla nazwa pliku, lub nie znaleziono pliku" << std::endl;
+        return false;
+	}
+}
+
+bool CKnapsackProblem::bCheckAtributes(int iItems, double dSpace, std::vector<double> vSize, std::vector<double> vValue)
+{
+    if (iItems <= 0)
+    {
+        std::cout << "Ujemna liczba przedmiotow" << std::endl;
+        return false;
+    }
+    if (dSpace <= 0)
+    {
+        std::cout << "Ujemna pojemnosc plecaka" << std::endl;
+        return false;
+    }
+    for (int ii = 0; ii < vSize.size(); ii++)
+    {
+        if (vSize.at(ii) < 0)
+        {
+            std::cout << "Ujemny rozmiar przedmiotu" << std::endl;
+            return false;
+        }
+        if (vValue.at(ii) < 0)
+        {
+            std::cout << "Ujemna wartosc przedmiotu" << std::endl;
+            return false;
+        }
+    }
+}
+
