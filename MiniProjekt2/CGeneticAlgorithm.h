@@ -3,7 +3,7 @@
 #include<bits/bits-stdc.h>
 #include<random>
 #include"CIndividual.h"
-#include"CKnapsackProblem.h"
+#include"CProblem.h"
 class CGeneticAlgorithm
 {
 private:
@@ -14,7 +14,7 @@ private:
 	double d_mutation_probability;
 	int i_maximum_generations;
 	CIndividual* c_best_individual;
-	CKnapsackProblem* c_knapsack_problem;
+	CProblem* c_problem;
 
 	int i_population_size_const = 0;
 	double d_crossover_probability_const = 0;
@@ -23,7 +23,7 @@ private:
 public:
 	CGeneticAlgorithm();
 	~CGeneticAlgorithm();
-	CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CKnapsackProblem* cKnapsackProblem);
+	CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CProblem* cProblem);
 	void vRunAlgorithm();
 	CIndividual* pcGetBestIndividual();
 	void vPrintBestGenotype();

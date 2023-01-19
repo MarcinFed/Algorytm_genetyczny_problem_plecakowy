@@ -130,12 +130,14 @@
     <ClCompile Include="CGeneticAlgorithm.cpp" />
     <ClCompile Include="CIndividual.cpp" />
     <ClCompile Include="CKnapsackProblem.cpp" />
+    <ClCompile Include="CProblem.cpp" />
     <ClCompile Include="MiniProjekt2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGeneticAlgorithm.h" />
     <ClInclude Include="CIndividual.h" />
     <ClInclude Include="CKnapsackProblem.h" />
+    <ClInclude Include="CProblem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

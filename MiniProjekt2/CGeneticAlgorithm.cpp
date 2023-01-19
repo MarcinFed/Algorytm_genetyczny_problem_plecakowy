@@ -8,12 +8,12 @@ CGeneticAlgorithm::CGeneticAlgorithm()
 	d_mutation_probability = d_mutation_probability_const;
 	i_maximum_generations = i_maximum_generations_const;
 	c_best_individual = NULL;
-	c_knapsack_problem = NULL;
+	c_problem = NULL;
 	v_present_population = new std::vector<CIndividual*>;
 	v_next_population = new std::vector<CIndividual*>;
 }
 
-CGeneticAlgorithm::CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CKnapsackProblem* cKnapsackProblem)
+CGeneticAlgorithm::CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CProblem* cProblem)
 {
 	srand(time(NULL));
 	i_population_size = iPopulationSize;
@@ -21,7 +21,7 @@ CGeneticAlgorithm::CGeneticAlgorithm(int iPopulationSize, double dCrossoverProba
 	d_mutation_probability = dMutationProbability;
 	i_maximum_generations = iMaximumGenerations;
 	c_best_individual = NULL;
-	c_knapsack_problem = cKnapsackProblem;
+	c_problem = cProblem;
 	v_present_population = new std::vector<CIndividual*>;
 	v_next_population = new std::vector<CIndividual*>;
 }
@@ -56,12 +56,7 @@ void CGeneticAlgorithm::vGenerateFirstPopulation()
 {
 	for (int ii = 0; ii < i_population_size; ii++)
 	{
-		std::vector<int>* vIndividual = new std::vector<int>;
-		for (int ij = 0; ij < c_knapsack_problem->iGetItemsNumber(); ij++)
-		{
-			vIndividual->push_back(iGetRandomNumber(2));
-		}
-		v_present_population->push_back(new CIndividual(vIndividual, c_knapsack_problem));
+		v_present_population->push_back(new CIndividual(c_problem));
 	}
 }
 
@@ -94,26 +89,23 @@ void CGeneticAlgorithm::vSwapPopulations()
 		delete v_present_population->at(ii);
 	}
 	delete v_present_population;
-	v_present_population = new std::vector<CIndividual*>;
-	v_present_population=v_next_population;
+	v_present_population = v_next_population;
 	v_next_population = new std::vector<CIndividual*>;
 }
 
 void CGeneticAlgorithm::vCrossovers()
 {
-	std::vector<CIndividual*>* v_children = new std::vector<CIndividual*>;
+	std::vector<CIndividual*> v_children;
 	while (v_present_population->size() > v_next_population->size())
 	{
-		v_children = pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size())))->cvCrossover(*pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size()))), iGetRandomNumber((c_knapsack_problem->iGetItemsNumber()-1)), d_crossover_probability, dGetRandomNumber());
-		v_next_population->push_back((*v_children)[0]);
-		v_next_population->push_back((*v_children)[1]);
-		v_children = NULL;
+		v_children = pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size())))->cvCrossover(*pcBetterIndividual(v_present_population->at(iGetRandomNumber(v_present_population->size())), v_present_population->at(iGetRandomNumber(v_present_population->size()))), iGetRandomNumber((c_problem->iGetCodeLength()-1)), d_crossover_probability, dGetRandomNumber());
+		v_next_population->push_back((v_children)[0]);
+		v_next_population->push_back((v_children)[1]);
 	}
 	if (i_population_size % 2 != 0)
 	{
 		v_next_population->pop_back();
 	}
-	delete v_children;
 }
 
 void CGeneticAlgorithm::vMutations()

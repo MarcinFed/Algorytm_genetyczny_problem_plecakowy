@@ -2,7 +2,7 @@
 
 CKnapsackProblem::CKnapsackProblem()
 {
-	i_items = 0;
+	i_length = 0;
 	d_space = 0;
     d_v_size;
     d_v_value;
@@ -15,7 +15,7 @@ double CKnapsackProblem::dScore(std::vector<int>* ivGenotype)
 {
     double d_size = 0;
     double d_value = 0;
-    for (int ii = 0; ii < i_items; ii++)
+    for (int ii = 0; ii < i_length; ii++)
     {
         if (ivGenotype->at(ii) == 1)
         {
@@ -29,9 +29,9 @@ double CKnapsackProblem::dScore(std::vector<int>* ivGenotype)
         return d_value;
 }
 
-void CKnapsackProblem::vSetItemsNumber(int iNumber)
+void CKnapsackProblem::vSetCodeLength(int iLength)
 {
-    i_items = iNumber;
+    i_length = iLength;
 }
 
 void CKnapsackProblem::vSetSizeVector(std::vector<double> dvSize)
@@ -49,9 +49,9 @@ void CKnapsackProblem::vSetSpace(double dSpace)
     d_space = dSpace;
 }
 
-int CKnapsackProblem::iGetItemsNumber()
+int CKnapsackProblem::iGetCodeLength()
 {
-    return i_items;
+    return i_length;
 }
 
 bool CKnapsackProblem::bRead(std::string sFileName)
@@ -59,12 +59,12 @@ bool CKnapsackProblem::bRead(std::string sFileName)
 	std::ifstream file(sFileName);
     if (file.is_open())
     {
-        int iItems;
+        int iLength;
         double dSpace;
         std::vector<double> vSize;
         std::vector<double> vValue;
         double dTemporary;
-        file >> iItems;
+        file >> iLength;
         file >> dSpace;
         while (!file.eof())
         {
@@ -73,9 +73,9 @@ bool CKnapsackProblem::bRead(std::string sFileName)
             file >> dTemporary;
             vValue.push_back(dTemporary);
         }
-        if (bCheckAtributes(iItems,dSpace,vSize,vValue))
+        if (bCheckAtributes(iLength,dSpace,vSize,vValue))
         {
-            vSetItemsNumber(iItems);
+            vSetCodeLength(iLength);
             vSetSpace(dSpace);
             vSetSizeVector(vSize);
             vSetValueVector(vValue);
@@ -91,9 +91,9 @@ bool CKnapsackProblem::bRead(std::string sFileName)
 	}
 }
 
-bool CKnapsackProblem::bCheckAtributes(int iItems, double dSpace, std::vector<double> vSize, std::vector<double> vValue)
+bool CKnapsackProblem::bCheckAtributes(int iLength, double dSpace, std::vector<double> vSize, std::vector<double> vValue)
 {
-    if (iItems <= 0)
+    if (iLength <= 0)
     {
         std::cout << "Ujemna liczba przedmiotow" << std::endl;
         return false;
@@ -116,12 +116,12 @@ bool CKnapsackProblem::bCheckAtributes(int iItems, double dSpace, std::vector<do
             return false;
         }
     }
-    if (vValue.size() > iItems)
+    if (vValue.size() > iLength)
     {
         std::cout << "Ilosc przedmiotow nieodpowiada ilosci podanych wartosci" << std::endl;
         return false;
     }
-    if (vSize.size() > iItems)
+    if (vSize.size() > iLength)
     {
         std::cout << "Ilosc przedmiotow nieodpowiada ilosci podanych wartosci" << std::endl;
         return false;
