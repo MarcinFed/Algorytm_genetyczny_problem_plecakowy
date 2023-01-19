@@ -1,5 +1,7 @@
 #include"CProblem.h"
 
+CProblem::CProblem() {}
+
 CProblem::~CProblem() {}
 
 bool CProblem::bRead(std::string sFileName)
