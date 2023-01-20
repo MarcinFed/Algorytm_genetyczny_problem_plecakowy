@@ -2,7 +2,6 @@
 
 CGeneticAlgorithm::CGeneticAlgorithm()
 {
-	srand(time(NULL));
 	i_population_size = i_population_size_const;
 	d_crossover_probability = d_crossover_probability_const;
 	d_mutation_probability = d_mutation_probability_const;
@@ -15,7 +14,6 @@ CGeneticAlgorithm::CGeneticAlgorithm()
 
 CGeneticAlgorithm::CGeneticAlgorithm(int iPopulationSize, double dCrossoverProbability, double dMutationProbability, int iMaximumGenerations, CProblem* cProblem)
 {
-	srand(time(NULL));
 	i_population_size = iPopulationSize;
 	d_crossover_probability = dCrossoverProbability;
 	d_mutation_probability = dMutationProbability;
