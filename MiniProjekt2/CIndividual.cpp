@@ -82,16 +82,19 @@ std::vector<CIndividual*> CIndividual::cvCrossover(CIndividual& pcOther, int iCu
 	return c_v_children;
 }
 
-void CIndividual::vMutate(double dMutationProbability)
+void CIndividual::vMutate(double dMutationProbability,CIndividual* pcOther)
 {
 	for (int ii = 0; ii < i_v_genotype->size(); ii++)
 	{
-		if (((double)rand() / (double)RAND_MAX) < dMutationProbability)
+		if (pcOther->i_v_genotype->at(ii) != i_v_genotype->at(ii))
 		{
-			if (i_v_genotype->at(ii) == 1)
-				(*i_v_genotype)[ii] = 0;
-			else
-				(*i_v_genotype)[ii] = 1;
+			if (((double)rand() / (double)RAND_MAX) < dMutationProbability)
+			{
+				if (i_v_genotype->at(ii) == 1)
+					(*i_v_genotype)[ii] = 0;
+				else
+					(*i_v_genotype)[ii] = 1;
+			}
 		}
 	}
 }

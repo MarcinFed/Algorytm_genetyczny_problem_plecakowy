@@ -110,7 +110,7 @@ void CGeneticAlgorithm::vMutations()
 {
 	for (int ii = 0; ii < v_next_population->size(); ii++)
 	{
-		(*v_next_population)[ii]->vMutate(d_mutation_probability);
+		(*v_next_population)[ii]->vMutate(d_mutation_probability, v_next_population->at(iGetRandomNumber(v_next_population->size())));
 	}
 }
 

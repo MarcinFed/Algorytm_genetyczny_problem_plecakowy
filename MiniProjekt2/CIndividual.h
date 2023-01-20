@@ -18,7 +18,7 @@ public:
 	CIndividual(const CIndividual& pcOther);
 	CIndividual* pcClone();
 	std::vector<CIndividual*> cvCrossover(CIndividual& pcOther, int iCutPlace, double dCrossoverProbability, double dProbability);
-	void vMutate(double dMutationProbability);
+	void vMutate(double dMutationProbability, CIndividual* pcOther);
 	std::vector<int>* ivGetGenotype();
 
 };
